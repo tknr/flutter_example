@@ -9,7 +9,7 @@ class Repositories {
   const Repositories({required this.isar});
 
   getCounterRepository() {
-    log('Repositories getCounterRepository');
+    log('${runtimeType} getCounterRepository');
     return CounterRepository(isar);
   }
 }

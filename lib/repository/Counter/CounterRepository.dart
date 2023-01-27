@@ -18,29 +18,30 @@ class CounterRepository {
 
   /// get all Counter
   FutureOr<List<Counter>> findCounters() async {
-    log('CounterRepository findCounters isar.isOpen : ${isar.isOpen} ');
+    log('${runtimeType} findCounters isar.isOpen : ${isar.isOpen}');
     if (!isar.isOpen) {
       return [];
     }
     final builder = isar.counters.where();
 
     var ret = sync ? builder.findAllSync() : await builder.findAll();
-    log('CounterRepository getCounters ret : $ret ');
+    log('${runtimeType} getCounters ret : $ret');
     return ret;
   }
 
   Future<Counter?> getCounter() async {
-    log('CounterRepository getCounter isar.isOpen : ${isar.isOpen} ');
+    log('${runtimeType} getCounter isar.isOpen : ${isar.isOpen}');
     if (!isar.isOpen) {
       return null;
     }
     final counter = await isar.counters.where().findFirst();
-    log('CounterRepository getCounter counter : ${counter} ');
+    log('${runtimeType} getCounter counter : ${counter}');
     return counter;
   }
 
   FutureOr<void> addCounter({required int count}) {
-    log('CounterRepository addCounter isar.isOpen : ${isar.isOpen} count:${count}');
+    log('${runtimeType} addCounter isar.isOpen : ${isar.isOpen} count:${count}',
+        name: this.runtimeType.toString());
     if (!isar.isOpen) {
       return Future<void>(() {});
     }
@@ -49,7 +50,7 @@ class CounterRepository {
       ..counter = count
       ..createdAt = now
       ..updatedAt = now;
-    log('CounterRepository addCounter counters : ${counters}');
+    log('${runtimeType} addCounter counters : ${counters}');
     if (sync) {
       isar.writeTxnSync<void>(() {
         isar.counters.putSync(counters);
@@ -63,7 +64,7 @@ class CounterRepository {
 
   FutureOr<void> updateCounter(
       {required Counter counters, required int count}) {
-    log('CounterRepository updateCounter isar.isOpen : ${isar.isOpen} counters:${counters} count:${count}');
+    log('${runtimeType} updateCounter isar.isOpen : ${isar.isOpen} counters:${counters} count:${count}');
     if (!isar.isOpen) {
       return Future<void>(() {});
     }
@@ -72,7 +73,7 @@ class CounterRepository {
       ..counter = count
       ..createdAt = now
       ..updatedAt = now;
-    log('CounterRepository updateCounter counters : ${counters}');
+    log('${runtimeType} updateCounter counters : ${counters}');
 
     if (sync) {
       isar.writeTxnSync<void>(() {

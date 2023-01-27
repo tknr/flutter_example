@@ -15,22 +15,36 @@ class HomeIndexPage extends StatefulWidget {
   State<HomeIndexPage> createState() => _HomeIndexPageState();
 }
 
-class _HomeIndexPageState extends State<HomeIndexPage> {
+class _HomeIndexPageState extends State<HomeIndexPage>
+    with WidgetsBindingObserver {
   int _counter = 0;
 
   @override
   void initState() {
     super.initState();
-    
+
     widget.repositories.getCounterRepository().getCounter().then((counter) {
-      log('_HomeIndexPageState initState counter : $counter ');
+      log('${runtimeType} initState counter : $counter');
       if (counter == null) {
         _counter = 0;
       } else {
         _counter = counter.counter;
       }
-      log('_HomeIndexPageState initState _counter : $_counter ');
+      log('${runtimeType} initState _counter : $_counter');
     });
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    log('state = $state');
   }
 
   @override
@@ -89,11 +103,11 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
     /// XXX do not execute async inside setState https://api.flutter.dev/flutter/widgets/State/setState.html
     setState(() {
       _counter++;
-      log('_HomeIndexPageState _incrementCounter setState _counter: $_counter ');
+      log('${runtimeType} _incrementCounter setState _counter: $_counter');
     });
 
     widget.repositories.getCounterRepository().getCounter().then((counter) {
-      log('_HomeIndexPageState _incrementCounter counter : $counter _counter: $_counter');
+      log('${runtimeType} _incrementCounter counter : $counter _counter: $_counter');
       if (counter == null) {
         widget.repositories.getCounterRepository().addCounter(count: _counter);
       } else {
