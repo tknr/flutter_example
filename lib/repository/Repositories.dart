@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+import 'package:my_app/utils/CurrentInfo.dart';
 import 'dart:developer';
 import 'Counter/CounterRepository.dart';
 
@@ -9,7 +10,7 @@ class Repositories {
   const Repositories({required this.isar});
 
   getCounterRepository() {
-    log('${runtimeType} getCounterRepository');
+    log('${CurrentInfo(StackTrace.current).getString()}');
     return CounterRepository(isar);
   }
 }
