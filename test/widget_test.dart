@@ -7,13 +7,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:isar/isar.dart';
 import 'package:my_app/main.dart';
-
+import 'package:my_app/app.dart';
+import 'package:my_app/repository/Repositories.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:my_app/collections/counter.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // リポジトリの初期化
+    // path_provider は Web に非対応
+    var path = '';
+    if (!foundation.kIsWeb) {
+      final dir = await getApplicationSupportDirectory();
+      path = dir.path;
+    }
+
+    final isar = await Isar.open(
+      [
+        CounterSchema,
+      ],
+      directory: path,
+    );
+    await tester.pumpWidget(App(repositories: Repositories(isar: isar),));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
