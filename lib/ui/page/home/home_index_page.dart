@@ -56,7 +56,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    log('state = $state');
+    log('${CurrentInfo(StackTrace.current).getString()} state = $state');
   }
 
   @override

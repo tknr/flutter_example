@@ -2,11 +2,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_app/api/google/books/GoogleBooksTestApi.dart';
 import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/appbar/common_appbar.dart';
 import 'package:my_app/ui/drawer/common_drawer.dart';
 import 'package:my_app/ui/page/RouteNames.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NextIndexPage extends StatefulWidget {
   const NextIndexPage({
@@ -23,11 +25,24 @@ class NextIndexPage extends StatefulWidget {
 
 class _NextIndexPageState extends State<NextIndexPage>
     with WidgetsBindingObserver {
+  List _items = [];
+
   @override
   void initState() {
     super.initState();
 
+    _initApiData();
+
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _initApiData() async {
+    GoogleBooksTestApi.getData().then((value) {
+      setState(() {
+        _items = value;
+      });
+      //log('${CurrentInfo(StackTrace.current).getString()} _items: $_items');
+    });
   }
 
   @override
@@ -38,22 +53,36 @@ class _NextIndexPageState extends State<NextIndexPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    log('state = $state');
+    log('${CurrentInfo(StackTrace.current).getString()} state = $state');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar.get(widget.title),
-      drawer:CommonDrawer.get(context),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('next page'),
-            ]),
+      drawer: CommonDrawer.get(context),
+      body: ListView.builder(
+        itemCount: _items.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Image.network(
+                    _items[index]['volumeInfo']['imageLinks']['thumbnail'],
+                  ),
+                  title: Text(_items[index]['volumeInfo']['title']),
+                  subtitle: Text(_items[index]['volumeInfo']['publishedDate']),
+                  onTap: () {
+                    log('${CurrentInfo(StackTrace.current).getString()} _item: ${_items[index]['volumeInfo']}');
+                    _openUrl(
+                        _items[index]['volumeInfo']['canonicalVolumeLink']);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
       ),
       persistentFooterButtons: <Widget>[
         ElevatedButton.icon(
@@ -95,5 +124,15 @@ class _NextIndexPageState extends State<NextIndexPage>
     Counter counter = counters.singleWhere((element) => element.id == 1);
     log('${CurrentInfo(StackTrace.current).getString()} deleting counter: $counter');
     await widget.db.deleteCounter(counter);
+  }
+
+  void _openUrl(url) async {
+    log('${CurrentInfo(StackTrace.current).getString()} url: $url');
+    var uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }
