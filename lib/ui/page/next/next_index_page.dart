@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_app/drift/database.dart';
+import 'package:my_app/ui/appbar/common_appbar.dart';
+import 'package:my_app/ui/drawer/common_drawer.dart';
 import 'package:my_app/ui/page/RouteNames.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
 
@@ -42,13 +44,8 @@ class _NextIndexPageState extends State<NextIndexPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(LineIcons.bars),
-        ),
-        title: Text(widget.title),
-      ),
+      appBar: CommonAppBar.get(widget.title),
+      drawer:CommonDrawer.get(context),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
