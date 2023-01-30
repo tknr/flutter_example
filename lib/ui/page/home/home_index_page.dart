@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:my_app/repository/Repositories.dart';
+import 'package:my_app/isar/repositories/Repositories.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
 
 class HomeIndexPage extends StatefulWidget {

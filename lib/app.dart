@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/repository/Repositories.dart';
+import 'package:my_app/isar/repositories/Repositories.dart';
 import 'package:my_app/ui/page/home/home_index_page.dart';
 import 'dart:developer';
-import 'package:my_app/repository/Counter/CounterRepository.dart';
+import 'package:my_app/isar/repositories/Counter/CounterRepository.dart';
 
 class App extends StatelessWidget {
   const App({

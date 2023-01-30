@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:isar/isar.dart';
-import 'package:my_app/collections/counter.dart';
+import 'package:my_app/isar/collections/counter.dart';
 import 'dart:developer';
 
 import 'package:my_app/utils/CurrentInfo.dart';

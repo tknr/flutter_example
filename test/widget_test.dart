@@ -11,9 +11,9 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:isar/isar.dart';
 import 'package:my_app/main.dart';
 import 'package:my_app/app.dart';
-import 'package:my_app/repository/Repositories.dart';
+import 'package:my_app/isar/repositories/Repositories.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:my_app/collections/counter.dart';
+import 'package:my_app/isar/collections/counter.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
