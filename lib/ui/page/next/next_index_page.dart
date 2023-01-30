@@ -26,6 +26,7 @@ class NextIndexPage extends StatefulWidget {
 class _NextIndexPageState extends State<NextIndexPage>
     with WidgetsBindingObserver {
   List _items = [];
+  String _searchQuery = '{Flutter}';
 
   @override
   void initState() {
@@ -38,20 +39,31 @@ class _NextIndexPageState extends State<NextIndexPage>
 
   void _initApiData() async {
     log('${CurrentInfo(StackTrace.current).getString()}');
-    GoogleBooksTestApi.getData().then((value) {
+    _searchQuery = '{Flutter}';
+    GoogleBooksTestApi.getData(q: _searchQuery).then((value) {
       setState(() {
         _items = value;
+        _switchSearchQuery();
       });
     });
   }
 
   void _refreshApiData() async {
     log('${CurrentInfo(StackTrace.current).getString()}');
-    GoogleBooksTestApi.getData(q: '{PHP}').then((value) {
+    GoogleBooksTestApi.getData(q: _searchQuery).then((value) {
       setState(() {
         _items = value;
+        _switchSearchQuery();
       });
     });
+  }
+
+  void _switchSearchQuery(){
+    if (_searchQuery == '{PHP}') {
+      _searchQuery = '{Flutter}';
+    } else {
+      _searchQuery = '{PHP}';
+    }
   }
 
   @override
