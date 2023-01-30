@@ -3,6 +3,7 @@ import 'package:my_app/ui/page/home/home_index_page.dart';
 import 'dart:developer';
 
 import 'package:my_app/drift/database.dart';
+import 'package:my_app/ui/page/next/next_index_page.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -29,11 +30,19 @@ class App extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.brown,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeIndexPage(
-          title: 'Flutter Demo Home Page',
-        db :db
-      ),
+      initialRoute: '/',
+      routes:{
+        '/': (context) =>  HomeIndexPage(
+            title: 'home index page',
+            db :db
+        ),
+        '/next':(context) => NextIndexPage(
+            title: 'next index page',
+            db :db
+        ),
+      },
     );
   }
 }

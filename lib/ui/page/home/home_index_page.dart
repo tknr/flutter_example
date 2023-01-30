@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/ui/page/next/next_index_page.dart';
 import 'dart:developer';
 import 'package:my_app/utils/CurrentInfo.dart';
 import 'package:my_app/drift/database.dart';
@@ -118,9 +119,11 @@ class _HomeIndexPageState extends State<HomeIndexPage>
               splashFactory: InkSplash.splashFactory),
         ),
         ElevatedButton.icon(
-          onPressed: _resetCounter,
-          icon: Icon(LineIcons.trash),
-          label: const Text('reset'),
+          onPressed: () {
+            Navigator.pushNamed(context, '/next');
+          },
+          icon: FaIcon(FontAwesomeIcons.diagramNext),
+          label: const Text('next'),
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               foregroundColor: Colors.white,
@@ -150,25 +153,5 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       await widget.db.updateCounter(counter);
       log('${CurrentInfo(StackTrace.current).getString()} updateCounter counter: $counter');
     }
-  }
-
-  void _resetCounter() async {
-    setState(() {
-      _counter = 0;
-      log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
-    });
-
-    _deleteCounters();
-  }
-
-  void _deleteCounters() async {
-    List<Counter> counters = await widget.db.selectCounters;
-    if (counters.isEmpty) {
-      log('${CurrentInfo(StackTrace.current).getString()} no counters: $counters');
-      return;
-    }
-    Counter counter = counters.singleWhere((element) => element.id == 1);
-    log('${CurrentInfo(StackTrace.current).getString()} deleting counter: $counter');
-    await widget.db.deleteCounter(counter);
   }
 }
