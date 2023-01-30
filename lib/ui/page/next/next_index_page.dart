@@ -59,10 +59,10 @@ class _NextIndexPageState extends State<NextIndexPage>
   }
 
   void _switchSearchQuery(){
-    if (_searchQuery == '{PHP}') {
+    if (_searchQuery == '{laravel}') {
       _searchQuery = '{Flutter}';
     } else {
-      _searchQuery = '{PHP}';
+      _searchQuery = '{laravel}';
     }
   }
 
