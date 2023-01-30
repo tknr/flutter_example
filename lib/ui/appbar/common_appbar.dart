@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
 
 class CommonAppBar {
