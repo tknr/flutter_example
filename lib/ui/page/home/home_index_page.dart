@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:my_app/utils/CurrentInfo.dart';
 import 'package:my_app/drift/database.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeIndexPage extends StatefulWidget {
   const HomeIndexPage({
@@ -106,21 +108,23 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       ), // This trailing comma makes auto-formatting nicer for build methods.
        */
       persistentFooterButtons: <Widget>[
-        ElevatedButton(
+        ElevatedButton.icon(
           onPressed: _incrementCounter,
-          child: const Text('increment'),
+          icon: FaIcon(FontAwesomeIcons.plus),
+          label: Text('increment'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-            foregroundColor: Colors.white,
-          ),
+              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white,
+              splashFactory: InkSplash.splashFactory),
         ),
-        ElevatedButton(
+        ElevatedButton.icon(
           onPressed: _resetCounter,
-          child: const Text('reset'),
+          icon: Icon(LineIcons.trash),
+          label: const Text('reset'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.white,
-          ),
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+              splashFactory: InkSplash.splashFactory),
         ),
       ],
     );
