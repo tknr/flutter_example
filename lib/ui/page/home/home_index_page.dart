@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:my_app/isar/repositories/Repositories.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
+import 'package:my_app/drift/database.dart';
 
 class HomeIndexPage extends StatefulWidget {
   const HomeIndexPage({
     super.key,
     required this.title,
-    required this.repositories,
+    required this.db,
   });
   final String title;
-  final Repositories repositories;
+  final MyDatabase db;
 
   @override
   State<HomeIndexPage> createState() => _HomeIndexPageState();
@@ -24,17 +24,23 @@ class _HomeIndexPageState extends State<HomeIndexPage>
   void initState() {
     super.initState();
 
-    widget.repositories.getCounterRepository().getCounter().then((counter) {
-      log('${CurrentInfo(StackTrace.current).getString()} counter : $counter');
-      if (counter == null) {
-        _counter = 0;
-      } else {
-        _counter = counter.counter;
-      }
-      log('${CurrentInfo(StackTrace.current).getString()} _counter : $_counter');
-    });
+    _initCounter();
 
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _initCounter() async {
+    List<Counter> counters = await widget.db.selectCounters;
+    log('${CurrentInfo(StackTrace.current).getString()} counters: $counters');
+    if (counters.isEmpty) {
+      return;
+    }
+    Counter counter = counters.singleWhere((element) => element.id == 1);
+    log('${CurrentInfo(StackTrace.current).getString()} counter: $counter');
+    setState(() {
+      _counter = counter.count!;
+      log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
+    });
   }
 
   @override
@@ -107,15 +113,18 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
     });
 
-    widget.repositories.getCounterRepository().getCounter().then((counter) {
-      log('${CurrentInfo(StackTrace.current).getString()} counter : $counter _counter: $_counter');
-      if (counter == null) {
-        widget.repositories.getCounterRepository().addCounter(count: _counter);
-      } else {
-        widget.repositories
-            .getCounterRepository()
-            .updateCounter(counters: counter, count: _counter);
-      }
-    });
+    _upsertCounters();
+  }
+
+  void _upsertCounters() async {
+    var counter = Counter(id: 1, count: _counter);
+    List<Counter> counters = await widget.db.selectCounters;
+    if (counters.isEmpty) {
+      await widget.db.insertCounter(counter);
+      log('${CurrentInfo(StackTrace.current).getString()} insertCounter counter: $counter');
+    } else {
+      await widget.db.updateCounter(counter);
+      log('${CurrentInfo(StackTrace.current).getString()} updateCounter counter: $counter');
+    }
   }
 }

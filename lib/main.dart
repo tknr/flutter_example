@@ -3,36 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter/foundation.dart' as foundation;
-import 'package:isar/isar.dart';
-import 'package:my_app/isar/IsarInitializer.dart';
-import 'package:my_app/isar/repositories/Repositories.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:my_app/app.dart';
-import 'package:my_app/isar/collections/counter.dart';
+import 'package:my_app/drift/database.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  final database = MyDatabase();
 
-  // リポジトリの初期化
-  // path_provider は Web に非対応
-  var path = '';
-  if (!foundation.kIsWeb) {
-    final dir = await getApplicationSupportDirectory();
-    path = dir.path;
-  }
-
-  final isar = await Isar.open(
-    Repositories.getSchemas(),
-    directory: path,
-  );
-
-
-  final repositories = Repositories(isar: isar);
-
-  runApp(App(
-    repositories: repositories,
-  ));
+  runApp(App(db :database));
 }

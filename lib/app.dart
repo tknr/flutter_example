@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/isar/repositories/Repositories.dart';
 import 'package:my_app/ui/page/home/home_index_page.dart';
 import 'dart:developer';
-import 'package:my_app/isar/repositories/Counter/CounterRepository.dart';
+
+import 'package:my_app/drift/database.dart';
 
 class App extends StatelessWidget {
   const App({
     super.key,
-    required this.repositories,
+    required this.db,
   });
 
-  final Repositories repositories;
+  final MyDatabase db;
+
 
   // This widget is the root of your application.
   @override
@@ -30,7 +31,9 @@ class App extends StatelessWidget {
         primarySwatch: Colors.brown,
       ),
       home: HomeIndexPage(
-          title: 'Flutter Demo Home Page', repositories: this.repositories),
+          title: 'Flutter Demo Home Page',
+        db :db
+      ),
     );
   }
 }
