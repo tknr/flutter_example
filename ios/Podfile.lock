@@ -1,8 +1,14 @@
 PODS:
   - Flutter (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
   - sqlite3 (3.40.0):
     - sqlite3/common (= 3.40.0)
   - sqlite3/common (3.40.0)
@@ -24,11 +30,13 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
+    - FMDB
     - sqlite3
 
 EXTERNAL SOURCES:
@@ -36,6 +44,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
   url_launcher_ios:
@@ -43,7 +53,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   sqlite3: 88dd99ef4ac3945f5a15facdd752933c52fd93bf
   sqlite3_flutter_libs: c00751e981228acb63595236703da79d31282b63
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2

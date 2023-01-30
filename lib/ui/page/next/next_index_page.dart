@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
@@ -94,8 +95,8 @@ class _NextIndexPageState extends State<NextIndexPage>
                 child: Column(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.network(
-                        _items[index]['volumeInfo']['imageLinks']['thumbnail'],
+                      leading: Image(
+                        image: CachedNetworkImageProvider(_items[index]['volumeInfo']['imageLinks']['thumbnail']),
                       ),
                       title: Text(_items[index]['volumeInfo']['title']),
                       subtitle:
