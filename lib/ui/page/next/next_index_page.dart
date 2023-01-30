@@ -37,11 +37,20 @@ class _NextIndexPageState extends State<NextIndexPage>
   }
 
   void _initApiData() async {
+    log('${CurrentInfo(StackTrace.current).getString()}');
     GoogleBooksTestApi.getData().then((value) {
       setState(() {
         _items = value;
       });
-      //log('${CurrentInfo(StackTrace.current).getString()} _items: $_items');
+    });
+  }
+
+  void _refreshApiData() async {
+    log('${CurrentInfo(StackTrace.current).getString()}');
+    GoogleBooksTestApi.getData(q: '{PHP}').then((value) {
+      setState(() {
+        _items = value;
+      });
     });
   }
 
@@ -61,29 +70,35 @@ class _NextIndexPageState extends State<NextIndexPage>
     return Scaffold(
       appBar: CommonAppBar.get(widget.title),
       drawer: CommonDrawer.get(context),
-      body: ListView.builder(
-        itemCount: _items.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Image.network(
-                    _items[index]['volumeInfo']['imageLinks']['thumbnail'],
-                  ),
-                  title: Text(_items[index]['volumeInfo']['title']),
-                  subtitle: Text(_items[index]['volumeInfo']['publishedDate']),
-                  onTap: () {
-                    log('${CurrentInfo(StackTrace.current).getString()} _item: ${_items[index]['volumeInfo']}');
-                    _openUrl(
-                        _items[index]['volumeInfo']['canonicalVolumeLink']);
-                  },
+      body: RefreshIndicator(
+          onRefresh: () async {
+            _refreshApiData();
+          },
+          child: ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: _items.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: Image.network(
+                        _items[index]['volumeInfo']['imageLinks']['thumbnail'],
+                      ),
+                      title: Text(_items[index]['volumeInfo']['title']),
+                      subtitle:
+                          Text(_items[index]['volumeInfo']['publishedDate']),
+                      onTap: () {
+                        log('${CurrentInfo(StackTrace.current).getString()} _item: ${_items[index]['volumeInfo']}');
+                        _openUrl(
+                            _items[index]['volumeInfo']['canonicalVolumeLink']);
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          )),
       persistentFooterButtons: <Widget>[
         ElevatedButton.icon(
           onPressed: _resetCounter,
