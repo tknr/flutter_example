@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:my_app/ui/page/next/next_index_page.dart';
 import 'dart:developer';
-import 'package:my_app/utils/CurrentInfo.dart';
-import 'package:my_app/drift/database.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/page/RouteNames.dart';
+import 'package:my_app/utils/CurrentInfo.dart';
 
 class HomeIndexPage extends StatefulWidget {
   const HomeIndexPage({
@@ -70,6 +69,10 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(LineIcons.bars),
+        ),
         title: Text(widget.title),
       ),
       body: Center(
@@ -112,7 +115,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       persistentFooterButtons: <Widget>[
         ElevatedButton.icon(
           onPressed: _incrementCounter,
-          icon: FaIcon(FontAwesomeIcons.plus),
+          icon: Icon(LineIcons.plus),
           label: Text('increment'),
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange,

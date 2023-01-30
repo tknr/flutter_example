@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:my_app/utils/CurrentInfo.dart';
-import 'package:my_app/drift/database.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/page/RouteNames.dart';
+import 'package:my_app/utils/CurrentInfo.dart';
 
 class NextIndexPage extends StatefulWidget {
   const NextIndexPage({
@@ -43,6 +43,10 @@ class _NextIndexPageState extends State<NextIndexPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(LineIcons.bars),
+        ),
         title: Text(widget.title),
       ),
       body: Center(

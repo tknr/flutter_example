@@ -1,9 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/page/RouteNames.dart';
 import 'package:my_app/ui/page/home/home_index_page.dart';
-import 'dart:developer';
-
-import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/page/next/next_index_page.dart';
 
 class App extends StatelessWidget {
