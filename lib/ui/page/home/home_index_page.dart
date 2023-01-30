@@ -5,6 +5,7 @@ import 'package:my_app/utils/CurrentInfo.dart';
 import 'package:my_app/drift/database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_app/ui/page/RouteNames.dart';
 
 class HomeIndexPage extends StatefulWidget {
   const HomeIndexPage({
@@ -120,9 +121,9 @@ class _HomeIndexPageState extends State<HomeIndexPage>
         ),
         ElevatedButton.icon(
           onPressed: () {
-            Navigator.pushNamed(context, '/next');
+            Navigator.pushNamed(context, RouteNames.next);
           },
-          icon: FaIcon(FontAwesomeIcons.diagramNext),
+          icon: FaIcon(FontAwesomeIcons.forwardFast),
           label: const Text('next'),
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,

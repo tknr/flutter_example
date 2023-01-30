@@ -4,6 +4,7 @@ import 'package:my_app/utils/CurrentInfo.dart';
 import 'package:my_app/drift/database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_app/ui/page/RouteNames.dart';
 
 class NextIndexPage extends StatefulWidget {
   const NextIndexPage({
@@ -65,9 +66,9 @@ class _NextIndexPageState extends State<NextIndexPage>
         ),
         ElevatedButton.icon(
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, RouteNames.home);
           },
-          icon: FaIcon(FontAwesomeIcons.backward),
+          icon: FaIcon(FontAwesomeIcons.backwardFast),
           label: const Text('back'),
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,

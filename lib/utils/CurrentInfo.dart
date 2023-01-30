@@ -6,6 +6,7 @@ class CurrentInfo {
   CurrentInfo(StackTrace current) {
     this.current = current;
   }
+
   /// get className,functionName,fileName,LineNumber for logging
   String? getString() {
     final now = DateTime.now();

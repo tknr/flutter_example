@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/ui/page/RouteNames.dart';
 import 'package:my_app/ui/page/home/home_index_page.dart';
 import 'dart:developer';
 
@@ -12,7 +13,6 @@ class App extends StatelessWidget {
   });
 
   final MyDatabase db;
-
 
   // This widget is the root of your application.
   @override
@@ -32,16 +32,12 @@ class App extends StatelessWidget {
         primarySwatch: Colors.brown,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
-      routes:{
-        '/': (context) =>  HomeIndexPage(
-            title: 'home index page',
-            db :db
-        ),
-        '/next':(context) => NextIndexPage(
-            title: 'next index page',
-            db :db
-        ),
+      initialRoute: RouteNames.home,
+      routes: {
+        RouteNames.home: (context) =>
+            HomeIndexPage(title: 'home index page', db: db),
+        RouteNames.next: (context) =>
+            NextIndexPage(title: 'next index page', db: db),
       },
     );
   }
