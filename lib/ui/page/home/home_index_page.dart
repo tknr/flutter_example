@@ -98,11 +98,31 @@ class _HomeIndexPageState extends State<HomeIndexPage>
           ],
         ),
       ),
+      /*
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+       */
+      persistentFooterButtons: <Widget>[
+        ElevatedButton(
+          onPressed: _incrementCounter,
+          child: const Text('increment'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+          ),
+        ),
+        ElevatedButton(
+          onPressed: _resetCounter,
+          child: const Text('reset'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+          ),
+        ),
+      ],
     );
   }
 
@@ -126,5 +146,25 @@ class _HomeIndexPageState extends State<HomeIndexPage>
       await widget.db.updateCounter(counter);
       log('${CurrentInfo(StackTrace.current).getString()} updateCounter counter: $counter');
     }
+  }
+
+  void _resetCounter() async {
+    setState(() {
+      _counter = 0;
+      log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
+    });
+
+    _deleteCounters();
+  }
+
+  void _deleteCounters() async {
+    List<Counter> counters = await widget.db.selectCounters;
+    if (counters.isEmpty) {
+      log('${CurrentInfo(StackTrace.current).getString()} no counters: $counters');
+      return;
+    }
+    Counter counter = counters.singleWhere((element) => element.id == 1);
+    log('${CurrentInfo(StackTrace.current).getString()} deleting counter: $counter');
+    await widget.db.deleteCounter(counter);
   }
 }
