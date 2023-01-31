@@ -1,4 +1,4 @@
 class RouteNames {
-  static const String home = '/';
-  static const String next = '/next';
+  static const String home_index = '/';
+  static const String next_index = '/next';
 }

@@ -126,7 +126,7 @@ class _NextIndexPageState extends State<NextIndexPage>
         ),
         ElevatedButton.icon(
           onPressed: () {
-            Navigator.pushNamed(context, RouteNames.home);
+            Navigator.pushNamed(context, RouteNames.home_index);
           },
           icon: FaIcon(FontAwesomeIcons.backwardFast),
           label: const Text('back'),

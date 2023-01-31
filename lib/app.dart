@@ -30,11 +30,11 @@ class App extends StatelessWidget {
         primarySwatch: Colors.brown,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: RouteNames.home,
+      initialRoute: RouteNames.home_index,
       routes: {
-        RouteNames.home: (context) =>
+        RouteNames.home_index: (context) =>
             HomeIndexPage(title: 'home index page', db: db),
-        RouteNames.next: (context) =>
+        RouteNames.next_index: (context) =>
             NextIndexPage(title: 'next index page', db: db),
       },
     );

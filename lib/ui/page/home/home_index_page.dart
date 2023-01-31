@@ -120,7 +120,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
         ),
         ElevatedButton.icon(
           onPressed: () {
-            Navigator.pushNamed(context, RouteNames.next);
+            Navigator.pushNamed(context, RouteNames.next_index);
           },
           icon: FaIcon(FontAwesomeIcons.forwardFast),
           label: const Text('next'),

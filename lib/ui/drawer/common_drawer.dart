@@ -14,14 +14,14 @@ class CommonDrawer {
             title: Text('home'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, RouteNames.home);
+              Navigator.pushNamed(context, RouteNames.home_index);
             },
           ),
           ListTile(
               title: Text('next'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, RouteNames.next);
+                Navigator.pushNamed(context, RouteNames.next_index);
               }),
         ],
       ),
