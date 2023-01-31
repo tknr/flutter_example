@@ -68,7 +68,7 @@ class _NextIndexPageState extends State<NextIndexPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    log('${CurrentInfo(StackTrace.current).getString()} state = $state');
+    CurrentInfo(StackTrace.current).log('state = $state');
   }
 
   final _controller = TextEditingController();
@@ -76,7 +76,7 @@ class _NextIndexPageState extends State<NextIndexPage>
     if (e.length > 0) {
       setState(() {
         _searchQuery = e;
-        log('${CurrentInfo(StackTrace.current).getString()} _searchQuery = $_searchQuery');
+        CurrentInfo(StackTrace.current).log('_searchQuery = $_searchQuery');
       });
       _refreshApiData();
     }
@@ -97,7 +97,10 @@ class _NextIndexPageState extends State<NextIndexPage>
           itemBuilder: (BuildContext context, int index) {
             var _item = _items[index];
             var _volumeInfo = _item['volumeInfo'];
-            log('${CurrentInfo(StackTrace.current).getString()} index : $index _volumeInfo: ${_volumeInfo}');
+            /*
+            CurrentInfo(StackTrace.current)
+                .log('index : $index _volumeInfo: ${_volumeInfo}');
+             */
             var _leadingImage = Image.asset('assets/images/noimage.png');
             if (_volumeInfo['imageLinks'] != null &&
                 _volumeInfo['imageLinks']['thumbnail'] != null) {
@@ -169,16 +172,16 @@ class _NextIndexPageState extends State<NextIndexPage>
   void _deleteCounters() async {
     List<Counter> counters = await widget.db.selectCounters;
     if (counters.isEmpty) {
-      log('${CurrentInfo(StackTrace.current).getString()} no counters: $counters');
+      CurrentInfo(StackTrace.current).log('no counters: $counters');
       return;
     }
     Counter counter = counters.singleWhere((element) => element.id == 1);
-    log('${CurrentInfo(StackTrace.current).getString()} deleting counter: $counter');
+    CurrentInfo(StackTrace.current).log('deleting counter: $counter');
     await widget.db.deleteCounter(counter);
   }
 
   void _openUrl(url) async {
-    log('${CurrentInfo(StackTrace.current).getString()} url: $url');
+    CurrentInfo(StackTrace.current).log('url: $url');
     var uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);

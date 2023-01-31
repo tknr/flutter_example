@@ -5,7 +5,7 @@ import 'package:my_app/utils/CurrentInfo.dart';
 
 class CommonAppBar {
   static get(String title) {
-    log('${CurrentInfo(StackTrace.current).getString()} title: $title');
+    CurrentInfo(StackTrace.current).log('title: $title');
     return AppBar(
       title: Text(title),
     );

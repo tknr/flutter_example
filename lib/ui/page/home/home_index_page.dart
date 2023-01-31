@@ -37,15 +37,15 @@ class _HomeIndexPageState extends State<HomeIndexPage>
 
   void _initCounter() async {
     List<Counter> counters = await widget.db.selectCounters;
-    log('${CurrentInfo(StackTrace.current).getString()} counters: $counters');
+    CurrentInfo(StackTrace.current).log('counters: $counters');
     if (counters.isEmpty) {
       return;
     }
     Counter counter = counters.singleWhere((element) => element.id == 1);
-    log('${CurrentInfo(StackTrace.current).getString()} counter: $counter');
+    CurrentInfo(StackTrace.current).log('counter: $counter');
     setState(() {
       _counter = counter.count!;
-      log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
+      CurrentInfo(StackTrace.current).log('_counter: $_counter');
     });
   }
 
@@ -57,7 +57,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    log('${CurrentInfo(StackTrace.current).getString()} state = $state');
+    CurrentInfo(StackTrace.current).log('state = $state');
   }
 
   @override
@@ -137,7 +137,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
     /// XXX do not execute async inside setState https://api.flutter.dev/flutter/widgets/State/setState.html
     setState(() {
       _counter++;
-      log('${CurrentInfo(StackTrace.current).getString()} _counter: $_counter');
+      CurrentInfo(StackTrace.current).log('_counter: $_counter');
     });
 
     _upsertCounters();
@@ -145,7 +145,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
 
   void _upsertCounters() async {
     var counter = Counter(id: 1, count: _counter);
-    log('${CurrentInfo(StackTrace.current).getString()} counter: $counter');
+    CurrentInfo(StackTrace.current).log('counter: $counter');
     await widget.db.upsertCounter(counter);
   }
 }

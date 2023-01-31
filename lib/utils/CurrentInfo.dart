@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer' as developer;
+
 /// Stacktrace tool for logging
 class CurrentInfo {
   StackTrace? current;
@@ -17,5 +20,10 @@ class CurrentInfo {
     currentStr = currentStr.split('      ')[1];
     String ret = '${now.toString()} ${currentStr}';
     return ret;
+  }
+
+  void log(String message) {
+    var info = getString();
+    developer.log('[${info}] ${message}');
   }
 }

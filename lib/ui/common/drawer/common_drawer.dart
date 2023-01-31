@@ -6,7 +6,7 @@ import 'package:my_app/utils/CurrentInfo.dart';
 
 class CommonDrawer {
   static get(BuildContext context) {
-    log('${CurrentInfo(StackTrace.current).getString()} context : ${context}');
+    CurrentInfo(StackTrace.current).log('context : ${context}');
     return Drawer(
       child: ListView(
         children: [
