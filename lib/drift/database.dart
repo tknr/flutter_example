@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:my_app/constance/constance.dart';
+import 'package:my_app/constance/tables.dart';
 import 'package:my_app/drift/table/counters.dart';
-import 'package:my_app/drift/table/tables.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -15,7 +15,7 @@ LazyDatabase _openConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'my_app.db'));
+    final file = File(p.join(dbFolder.path, Constance.db_filename));
     return NativeDatabase(file);
   });
 }

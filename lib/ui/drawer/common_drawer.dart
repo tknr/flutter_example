@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:my_app/ui/page/RouteNames.dart';
+import 'package:my_app/constance/RouteNames.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
 
 class CommonDrawer {
