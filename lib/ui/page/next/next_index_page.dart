@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,7 +60,7 @@ class _NextIndexPageState extends State<NextIndexPage>
     });
   }
 
-  void _switchSearchQuery(){
+  void _switchSearchQuery() {
     if (_searchQuery == '{laravel}') {
       _searchQuery = '{Flutter}';
     } else {
@@ -96,7 +97,8 @@ class _NextIndexPageState extends State<NextIndexPage>
                   children: <Widget>[
                     ListTile(
                       leading: Image(
-                        image: CachedNetworkImageProvider(_items[index]['volumeInfo']['imageLinks']['thumbnail']),
+                        image: CachedNetworkImageProvider(_items[index]
+                            ['volumeInfo']['imageLinks']['thumbnail']),
                       ),
                       title: Text(_items[index]['volumeInfo']['title']),
                       subtitle:

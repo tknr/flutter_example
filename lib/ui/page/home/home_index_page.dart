@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
@@ -69,7 +70,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: CommonAppBar.get(widget.title),
-      drawer:CommonDrawer.get(context),
+      drawer: CommonDrawer.get(context),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.

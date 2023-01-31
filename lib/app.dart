@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:my_app/drift/database.dart';
 import 'package:my_app/ui/page/RouteNames.dart';

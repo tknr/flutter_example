@@ -1,12 +1,14 @@
-import 'dart:developer';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:my_app/utils/CurrentInfo.dart';
 
 class GoogleBooksTestApi {
   static Future<List<dynamic>> getData(
-      {String q = '{Flutter}', String maxResults = '40', String langRestrict = 'ja'}) async {
+      {String q = '{Flutter}',
+      String maxResults = '40',
+      String langRestrict = 'ja'}) async {
     log('${CurrentInfo(StackTrace.current).getString()} q: $q maxResults: $maxResults langRestrict: $langRestrict');
 
     var response = await http.get(Uri.https(
