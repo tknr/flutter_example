@@ -26,7 +26,7 @@ LazyDatabase _openConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'cnts.db'));
+    final file = File(p.join(dbFolder.path, 'my_app.db'));
     return NativeDatabase(file);
   });
 }
