@@ -7,8 +7,8 @@ import 'package:line_icons/line_icons.dart';
 import 'package:my_app/api/google/books/GoogleBooksTestApi.dart';
 import 'package:my_app/constance/RouteNames.dart';
 import 'package:my_app/drift/database.dart';
-import 'package:my_app/ui/appbar/common_appbar.dart';
-import 'package:my_app/ui/drawer/common_drawer.dart';
+import 'package:my_app/ui/common/appbar/common_appbar.dart';
+import 'package:my_app/ui/common/drawer/common_drawer.dart';
 import 'package:my_app/utils/CurrentInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,7 +41,6 @@ class _NextIndexPageState extends State<NextIndexPage>
 
   void _initApiData() async {
     log('${CurrentInfo(StackTrace.current).getString()}');
-    _searchQuery = '{Flutter}';
     GoogleBooksTestApi.getData(q: _searchQuery).then((value) {
       setState(() {
         _items = value;
