@@ -144,13 +144,7 @@ class _HomeIndexPageState extends State<HomeIndexPage>
 
   void _upsertCounters() async {
     var counter = Counter(id: 1, count: _counter);
-    List<Counter> counters = await widget.db.selectCounters;
-    if (counters.isEmpty) {
-      await widget.db.insertCounter(counter);
-      log('${CurrentInfo(StackTrace.current).getString()} insertCounter counter: $counter');
-    } else {
-      await widget.db.updateCounter(counter);
-      log('${CurrentInfo(StackTrace.current).getString()} updateCounter counter: $counter');
-    }
+    log('${CurrentInfo(StackTrace.current).getString()} counter: $counter');
+    await widget.db.upsertCounter(counter);
   }
 }

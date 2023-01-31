@@ -17,6 +17,7 @@ class MyDatabase extends _$MyDatabase {
   Future<List<Counter>> get selectCounters => select(counters).get();
   Future updateCounter(Counter counter) => update(counters).replace(counter);
   Future deleteCounter(Counter counter) => delete(counters).delete(counter);
+  Future upsertCounter(Counter counter) => into(counters).insertOnConflictUpdate(counter);
 }
 
 LazyDatabase _openConnection() {
