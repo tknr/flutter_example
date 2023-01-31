@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_app/api/google/books/GoogleBooksTestApi.dart';
@@ -44,7 +45,7 @@ class _NextIndexPageState extends State<NextIndexPage>
     GoogleBooksTestApi.getData(q: _searchQuery).then((value) {
       setState(() {
         _items = value;
-        _switchSearchQuery();
+        //_switchSearchQuery();
       });
     });
   }
@@ -54,7 +55,7 @@ class _NextIndexPageState extends State<NextIndexPage>
     GoogleBooksTestApi.getData(q: _searchQuery).then((value) {
       setState(() {
         _items = value;
-        _switchSearchQuery();
+        //_switchSearchQuery();
       });
     });
   }
@@ -78,42 +79,68 @@ class _NextIndexPageState extends State<NextIndexPage>
     log('${CurrentInfo(StackTrace.current).getString()} state = $state');
   }
 
+  final _controller = TextEditingController();
+  void _handleText(String e) {
+    if (e.length > 0) {
+      setState(() {
+        _searchQuery = '{' + e + '}';
+        log('${CurrentInfo(StackTrace.current).getString()} _searchQuery = $_searchQuery');
+      });
+      _refreshApiData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar.get(widget.title),
       drawer: CommonDrawer.get(context),
       body: RefreshIndicator(
-          onRefresh: () async {
-            _refreshApiData();
+        onRefresh: () async {
+          _refreshApiData();
+        },
+        child: ListView.builder(
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: _items.length,
+          itemBuilder: (BuildContext context, int index) {
+            var _item = _items[index];
+            var _volumeInfo = _item['volumeInfo'];
+            log('${CurrentInfo(StackTrace.current).getString()} index : $index _volumeInfo: ${_volumeInfo}');
+            var _leadingImage = Image.asset('images/noimage.png');
+            if(_volumeInfo['imageLinks'] != null && _volumeInfo['imageLinks']['thumbnail'] != null){
+              _leadingImage = Image(image:CachedNetworkImageProvider(
+                  _volumeInfo['imageLinks']['thumbnail']));
+            }
+            return Card(
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: _leadingImage,
+                    title: Text(_volumeInfo['title'] ??= '-'),
+                    subtitle: Text(_volumeInfo['publishedDate'] ??= '-'),
+                    onTap: () {
+                      if (_volumeInfo['canonicalVolumeLink'] != null) {
+                        _openUrl(_volumeInfo['canonicalVolumeLink']);
+                      }
+                    },
+                  ),
+                ],
+              ),
+            );
           },
-          child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: _items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      leading: Image(
-                        image: CachedNetworkImageProvider(_items[index]
-                            ['volumeInfo']['imageLinks']['thumbnail']),
-                      ),
-                      title: Text(_items[index]['volumeInfo']['title']),
-                      subtitle:
-                          Text(_items[index]['volumeInfo']['publishedDate']),
-                      onTap: () {
-                        log('${CurrentInfo(StackTrace.current).getString()} _item: ${_items[index]['volumeInfo']}');
-                        _openUrl(
-                            _items[index]['volumeInfo']['canonicalVolumeLink']);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          )),
+        ),
+      ),
       persistentFooterButtons: <Widget>[
+        SizedBox(
+            width: 180,
+            child: TextFormField(
+              enabled: true,
+              maxLines: 1,
+              maxLength: 20,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              obscureText: false,
+              onChanged: _handleText,
+            )),
         ElevatedButton.icon(
           onPressed: _resetCounter,
           icon: Icon(LineIcons.trash),
