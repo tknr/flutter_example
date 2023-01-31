@@ -6,6 +6,7 @@ import 'package:my_app/constance/tables.dart';
 import 'package:my_app/drift/table/counters.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:riverpod/riverpod.dart';
 
 part 'database.g.dart';
 
@@ -23,6 +24,13 @@ LazyDatabase _openConnection() {
 @DriftDatabase(tables: Tables.tables)
 class MyDatabase extends _$MyDatabase {
   MyDatabase() : super(_openConnection());
+
+  static Provider<MyDatabase> provider = Provider((ref) {
+    final database = MyDatabase();
+    ref.onDispose(database.close);
+
+    return database;
+  });
 
   @override
   int get schemaVersion => 1;
