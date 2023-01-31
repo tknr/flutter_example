@@ -4,10 +4,9 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:my_app/utils/CurrentInfo.dart';
 
-
 class GoogleBooksTestApi {
   static Future<List<dynamic>> getData(
-      {String q = '{Flutter}',
+      {String q = 'Flutter',
       String startIndex = '0',
       String maxResults = '40',
       String langRestrict = 'ja'}) async {
@@ -16,7 +15,7 @@ class GoogleBooksTestApi {
     /// @see https://developers.google.com/books/docs/v1/using?hl=ja
     var response =
         await http.get(Uri.https('www.googleapis.com', '/books/v1/volumes', {
-      'q': q,
+      'q': '{${q}}',
       'startIndex': startIndex,
       'maxResults': maxResults,
       'langRestrict': langRestrict

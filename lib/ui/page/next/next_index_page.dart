@@ -29,7 +29,7 @@ class NextIndexPage extends StatefulWidget {
 class _NextIndexPageState extends State<NextIndexPage>
     with WidgetsBindingObserver {
   List _items = [];
-  String _searchQuery = '{Flutter}';
+  String _searchQuery = 'Flutter';
 
   @override
   void initState() {
@@ -60,14 +60,6 @@ class _NextIndexPageState extends State<NextIndexPage>
     });
   }
 
-  void _switchSearchQuery() {
-    if (_searchQuery == '{laravel}') {
-      _searchQuery = '{Flutter}';
-    } else {
-      _searchQuery = '{laravel}';
-    }
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -83,7 +75,7 @@ class _NextIndexPageState extends State<NextIndexPage>
   void _handleText(String e) {
     if (e.length > 0) {
       setState(() {
-        _searchQuery = '{' + e + '}';
+        _searchQuery = e;
         log('${CurrentInfo(StackTrace.current).getString()} _searchQuery = $_searchQuery');
       });
       _refreshApiData();
@@ -106,10 +98,12 @@ class _NextIndexPageState extends State<NextIndexPage>
             var _item = _items[index];
             var _volumeInfo = _item['volumeInfo'];
             log('${CurrentInfo(StackTrace.current).getString()} index : $index _volumeInfo: ${_volumeInfo}');
-            var _leadingImage = Image.asset('images/noimage.png');
-            if(_volumeInfo['imageLinks'] != null && _volumeInfo['imageLinks']['thumbnail'] != null){
-              _leadingImage = Image(image:CachedNetworkImageProvider(
-                  _volumeInfo['imageLinks']['thumbnail']));
+            var _leadingImage = Image.asset('assets/images/noimage.png');
+            if (_volumeInfo['imageLinks'] != null &&
+                _volumeInfo['imageLinks']['thumbnail'] != null) {
+              _leadingImage = Image(
+                  image: CachedNetworkImageProvider(
+                      _volumeInfo['imageLinks']['thumbnail']));
             }
             return Card(
               child: Column(
@@ -140,6 +134,7 @@ class _NextIndexPageState extends State<NextIndexPage>
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               obscureText: false,
               onChanged: _handleText,
+              initialValue: _searchQuery,
             )),
         ElevatedButton.icon(
           onPressed: _resetCounter,
