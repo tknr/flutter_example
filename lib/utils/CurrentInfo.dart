@@ -1,21 +1,23 @@
 /// Stacktrace tool for logging
+/// example : print(CurrentInfo(StackTrace.current).getString() + 'fizz buzz');
 class CurrentInfo {
-  StackTrace? current;
-
   /// @param Stacktrace current
-  CurrentInfo(StackTrace current) {
-    this.current = current;
-  }
+  CurrentInfo(StackTrace this.current, {this.showTimestamp = false});
+  StackTrace? current;
+  bool showTimestamp = false;
 
   /// get className,functionName,fileName,LineNumber for logging
-  String? getString() {
-    final now = DateTime.now();
-    if (this.current == null) {
-      return '${now.toString()}';
+  String getString() {
+    String now = '';
+    if (showTimestamp) {
+      now = DateTime.now().toString() + ' ';
     }
-    String currentStr = this.current.toString().split('\n')[0];
+    if (current == null) {
+      return '$now';
+    }
+    String currentStr = current.toString().split('\n')[0];
     currentStr = currentStr.split('      ')[1];
-    String ret = '${now.toString()} ${currentStr}';
+    final String ret = '$now$currentStr';
     return ret;
   }
 }
