@@ -1,7 +1,9 @@
-/// Stacktrace tool for logging
-/// example : print(CurrentInfo(StackTrace.current).getString() + 'fizz buzz');
+/// Stacktrace tool for logging<br />
+/// example : <br />
+/// print(CurrentInfo(StackTrace.current).getString() + 'fizz buzz');
 class CurrentInfo {
-  /// @param Stacktrace current
+  /// [current] : StackTrace.current<br />
+  /// [showTimestamp] : show timestamp or not
   CurrentInfo(StackTrace this.current, {this.showTimestamp = false});
   StackTrace? current;
   bool showTimestamp = false;
